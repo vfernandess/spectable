@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "879719036640",
+    "project_id": "spectale-ab4cb",
+    "storage_bucket": "spectale-ab4cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879719036640:android:303b5684142c9ab7224285",
+        "android_client_info": {
+          "package_name": "com.voidx.spectable"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879719036640-fmv8ci1n83tg0b0sv7h1lib7iu9bkasv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyQzpB7-r4s1XLIK_xeVzxfP8W7ANf0YE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879719036640-fmv8ci1n83tg0b0sv7h1lib7iu9bkasv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

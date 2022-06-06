@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="RoundMenu" >
+        <attr name="app_menuTitle" format="string"/>
+        <attr name="app_menuIcon" format="reference"/>
+        <attr name="app_menuDescription" format="string"/>
+    </declare-styleable>
+
+</resources>

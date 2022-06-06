@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -29,12 +33,41 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
+    implementation coreDependencies.kotlin
+    implementation coreDependencies.koin
+    implementation coreDependencies.koinAndroid
 
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation dataDependencies.gson
+    implementation dataDependencies.retrofit
+    implementation dataDependencies.retrofitLogging
+    implementation dataDependencies.gsonConverter
+    implementation dataDependencies.retrofitRxJava
+    implementation dataDependencies.rxJava
+    implementation dataDependencies.rxAndroid
+    implementation dataDependencies.rxKotlin
+    implementation dataDependencies.hawk
+
+    implementation platform(dataDependencies.firebaseBOM)
+    implementation dataDependencies.firebaseAuth
+    implementation dataDependencies.firebaseFirestore
+    implementation viewDependencies.firebaseUI
+
+    implementation viewDependencies.appCompat
+    implementation viewDependencies.androidx
+    implementation viewDependencies.constraintLayout
+    implementation viewDependencies.coordinatorLayout
+    implementation viewDependencies.fragment
+    implementation viewDependencies.recycler
+    implementation viewDependencies.lifecycleViewModel
+    implementation viewDependencies.lifecycleLiveData
+    implementation viewDependencies.lifecycleCommon
+    implementation viewDependencies.material
+    implementation viewDependencies.navigationFragment
+    implementation viewDependencies.navigation
 }

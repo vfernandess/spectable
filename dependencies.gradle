@@ -1,0 +1,87 @@
+ext {
+
+    kotlin_version = "1.5.30"
+    koin_version = "3.2.0"
+
+    nav_version = '2.4.2'
+    recylerview_version = '1.2.1'
+    lifecycle_version = '2.4.1'
+    fragment_version = '1.4.1'
+    picasso_version = "2.71828"
+    constraint_layout_version = '2.1.4'
+    coordinator_layout_version = "1.2.0"
+    pull_refresh_version = "1.1.0"
+    legacy_version = "1.0.0"
+    appcompat_version = '1.4.2'
+    androidx_version = '1.8.0'
+    material_version = '1.6.1'
+
+    androix_test_version = '1.2.0'
+    espresso_version = '3.2.0'
+
+    junit_version = "1.1.1"
+
+    retrofit_version = "2.9.0"
+    retrofit_logger_version = '5.0.0-alpha.7'
+    rx_version = '3.1.5'
+    rx_kotlin_version = '3.0.1'
+    rx_android_version = "3.0.0"
+    firebase_version = "30.0.1"
+
+    coreDependencies = [
+            kotlin     : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+            koin       : "io.insert-koin:koin-core:$koin_version",
+            koinAndroid: "io.insert-koin:koin-android:$koin_version"
+    ]
+
+    viewDependencies = [
+            appCompat         : "androidx.appcompat:appcompat:$appcompat_version",
+            androidx          : "androidx.core:core-ktx:$androidx_version",
+            constraintLayout  : "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
+            picasso           : "com.squareup.picasso:picasso:$picasso_version",
+            fragment          : "androidx.fragment:fragment-ktx:$fragment_version",
+            recycler          : "androidx.recyclerview:recyclerview:$recylerview_version",
+            lifecycleViewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            lifecycleLiveData : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+            lifecycleCommon   : "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version",
+            legacy            : "androidx.legacy:legacy-support-v4:$legacy_version",
+            pullToRefresh     : "androidx.swiperefreshlayout:swiperefreshlayout:$pull_refresh_version",
+            material          : "com.google.android.material:material:$material_version",
+            navigationFragment: "androidx.navigation:navigation-fragment-ktx:$nav_version",
+            navigation        : "androidx.navigation:navigation-ui-ktx:$nav_version",
+            navigationSafeArgs: "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version",
+            coordinatorLayout : "androidx.coordinatorlayout:coordinatorlayout:$coordinator_layout_version",
+            firebaseUI        : 'com.firebaseui:firebase-ui-auth:7.2.0'
+    ]
+
+    dataDependencies = [
+            gson             : "com.google.code.gson:gson:2.9.0",
+            retrofit         : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            retrofitLogging  : "com.squareup.okhttp3:logging-interceptor:$retrofit_logger_version",
+            gsonConverter    : "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            retrofitRxJava   : "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version",
+            rxJava           : "io.reactivex.rxjava3:rxjava:$rx_version",
+            rxAndroid        : "io.reactivex.rxjava3:rxandroid:$rx_android_version",
+            rxKotlin         : "io.reactivex.rxjava3:rxkotlin:$rx_kotlin_version",
+            firebaseBOM      : "com.google.firebase:firebase-bom:$firebase_version",
+            hawk             : "com.orhanobut:hawk:2.0.1",
+            firebaseAuth     : 'com.google.firebase:firebase-auth',
+            firebaseFirestore: 'com.google.firebase:firebase-firestore-ktx'
+    ]
+
+    testDependencies = [
+            jUnit: "androidx.test.ext:junit:$junit_version",
+            mockk: "io.mockk:mockk:1.10.0",
+            arch : "androidx.arch.core:core-testing:2.1.0"
+    ]
+
+    androidTestDependencies = [
+            mockWebServer     : "com.squareup.okhttp3:mockwebserver:4.8.1",
+            androidxTestRules : "androidx.test:rules:$androix_test_version",
+            androidxTestRunner: "androidx.test:runner:$androix_test_version",
+            rxIdler           : 'com.squareup.rx.idler:rx3-idler:0.11.0',
+            espresso          : "androidx.test.espresso:espresso-core:$espresso_version",
+            espressoContrib   : "androidx.test.espresso:espresso-contrib:$espresso_version",
+            fragmentTesting   : "androidx.fragment:fragment-testing:$fragment_version"
+    ]
+}
