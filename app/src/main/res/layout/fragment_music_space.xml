@@ -52,7 +52,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <com.voidx.spectable.widget.songcover.SongCover
                 android:id="@+id/cover"
                 android:layout_width="200dp"
                 android:layout_height="200dp"

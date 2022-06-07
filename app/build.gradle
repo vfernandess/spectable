@@ -64,6 +64,8 @@ dependencies {
     implementation viewDependencies.coordinatorLayout
     implementation viewDependencies.fragment
     implementation viewDependencies.picasso
+    implementation viewDependencies.glide
+    kapt viewDependencies.glideCompiler
     implementation viewDependencies.recycler
     implementation viewDependencies.lifecycleViewModel
     implementation viewDependencies.lifecycleLiveData

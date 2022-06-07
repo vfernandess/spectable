@@ -39,7 +39,7 @@ class MusicSpaceFragment : Fragment(), AndroidScopeComponent {
 
     private lateinit var binding: FragmentMusicSpaceBinding
     private val adapter by lazy {
-        MusicSpaceAdapter(::onSongSelected, ::onSongRemoved)
+        MusicSpaceAdapter(::onSongSelected, ::onSongRemoved, ::onBuildCover)
     }
 
     private val musicSpaceViewModel: MusicSpaceViewModel by viewModel()
@@ -90,6 +90,7 @@ class MusicSpaceFragment : Fragment(), AndroidScopeComponent {
                 is UserSongListAdded -> {
                     binding.loading.visibility = GONE
                     binding.groupUserWithSongs.visibility = VISIBLE
+                    binding.emptyState.visibility = GONE
 
                     adapter.notifySongAdded(effect.song)
                 }
@@ -120,7 +121,7 @@ class MusicSpaceFragment : Fragment(), AndroidScopeComponent {
                 viewHolder: RecyclerView.ViewHolder?,
                 underlayButtons: MutableList<UnderlayButton>?
             ) {
-                val removeSongButton = SwipeHelper.UnderlayButton(
+                val removeSongButton = UnderlayButton(
                     null,
                     AppCompatResources.getDrawable(context!!, R.drawable.ic_trash_can),
                     Color.parseColor("#7DFF0000"),
@@ -139,5 +140,9 @@ class MusicSpaceFragment : Fragment(), AndroidScopeComponent {
 
     private fun onSongSelected(song: Song) {
 
+    }
+
+    private fun onBuildCover(first: Song?, second: Song?, third: Song?, fourth: Song?) {
+        binding.cover.buildCover(first, second, third, fourth)
     }
 }

@@ -9,25 +9,35 @@ import com.voidx.spectable.feature.music.space.Song
 
 class MusicSpaceAdapter(
     private val onItemSelected: (song: Song) -> Unit,
-    private val onItemRemoved: (song: Song) -> Unit
+    private val onItemRemoved: (song: Song) -> Unit,
+    private val onShowItemCovers: (first: Song?, second: Song?, third: Song?, fourth: Song?) -> Unit
 ) : RecyclerView.Adapter<MusicSpaceItem>() {
 
     private var songs: MutableSet<Song> = mutableSetOf()
 
-    fun notifySongs(songs: List<Song>) {
-        this.songs.clear()
-        this.songs.addAll(songs)
-        notifyDataSetChanged()
+    private fun showCovers(position: Int) {
+        if ((0..3).contains(position).not()) {
+            return
+        }
+
+        onShowItemCovers.invoke(
+            songs.elementAtOrNull(0),
+            songs.elementAtOrNull(1),
+            songs.elementAtOrNull(2),
+            songs.elementAtOrNull(3)
+        )
     }
 
     fun notifySongAdded(song: Song) {
         val size = itemCount
         if (songs.add(song)) {
+            showCovers(size)
             notifyItemInserted(size)
         }
     }
 
     fun notifySongRemoved(position: Int) {
+        showCovers(position)
         songs
             .elementAtOrNull(position)
             ?.takeIf { songs.remove(it) }
