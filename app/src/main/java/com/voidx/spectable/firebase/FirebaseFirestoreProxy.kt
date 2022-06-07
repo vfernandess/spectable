@@ -6,22 +6,21 @@ import com.google.firebase.firestore.FirebaseFirestore
 interface FirebaseFirestoreProxy {
 
     fun retrieve(
-            name: String,
-            document: String,
-            completion: ((snapshot: DocumentSnapshot?, error: Exception?) -> Unit)
+        name: String,
+        document: String,
+        completion: ((snapshot: DocumentSnapshot?, error: Exception?) -> Unit)
     )
-}
 
-class FirebaseFirestoreProxyImpl(
+    class Impl(
         private val firestore: FirebaseFirestore
-) : FirebaseFirestoreProxy {
+    ) : FirebaseFirestoreProxy {
 
-    override fun retrieve(
+        override fun retrieve(
             name: String,
             document: String,
             completion: (result: DocumentSnapshot?, error: Exception?) -> Unit
-    ) {
-        firestore
+        ) {
+            firestore
                 .collection(name)
                 .document(document)
                 .get()
@@ -31,5 +30,6 @@ class FirebaseFirestoreProxyImpl(
                 .addOnFailureListener {
                     completion(null, it)
                 }
+        }
     }
 }

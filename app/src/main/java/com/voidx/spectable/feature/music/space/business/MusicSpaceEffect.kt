@@ -7,6 +7,8 @@ sealed class MusicSpaceEffect {
 
     object UserEmptySongList: MusicSpaceEffect()
 
+    object Loading: MusicSpaceEffect()
+
     data class Error(
             val exception: Exception
     ): MusicSpaceEffect()
