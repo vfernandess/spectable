@@ -21,5 +21,18 @@
     <fragment
         android:id="@+id/music_space"
         android:name="com.voidx.spectable.feature.music.space.view.MusicSpaceFragment"
-        tools:layout="@layout/fragment_music_space" />
+        tools:layout="@layout/fragment_music_space">
+
+        <action
+            android:id="@+id/music_space_to_search_song"
+            app:destination="@+id/search_song"
+            app:popUpTo="@id/music_space"
+            app:popUpToSaveState="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/search_song"
+        android:name="com.voidx.spectable.feature.music.search.view.SearchSongFragment"
+        tools:layout="@layout/fragment_search_song" />
 </navigation>

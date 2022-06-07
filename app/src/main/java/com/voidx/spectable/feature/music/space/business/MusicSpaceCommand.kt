@@ -9,4 +9,8 @@ sealed class MusicSpaceCommand {
     data class RemoveSong(
             val song: Song
     ): MusicSpaceCommand()
+
+    object AddNewSong: MusicSpaceCommand()
+
+    object ResetNavigation: MusicSpaceCommand()
 }

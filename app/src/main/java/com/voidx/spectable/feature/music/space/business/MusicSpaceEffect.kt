@@ -9,6 +9,10 @@ sealed class MusicSpaceEffect {
 
     object Loading: MusicSpaceEffect()
 
+    object AddNewSong: MusicSpaceEffect()
+
+    object Nothing: MusicSpaceEffect()
+
     data class Error(
             val exception: Exception
     ): MusicSpaceEffect()

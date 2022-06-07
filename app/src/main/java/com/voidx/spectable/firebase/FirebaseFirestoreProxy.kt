@@ -8,7 +8,14 @@ interface FirebaseFirestoreProxy {
     fun retrieve(
         name: String,
         document: String,
-        completion: ((snapshot: DocumentSnapshot?, error: Exception?) -> Unit)
+        completion: (snapshots: List<DocumentSnapshot>?, error: Exception?) -> Unit
+    )
+
+    fun <T> save(
+        name: String,
+        document: String,
+        value: T,
+        completion: (success: Boolean, error: Exception?) -> Unit
     )
 
     class Impl(
@@ -18,17 +25,37 @@ interface FirebaseFirestoreProxy {
         override fun retrieve(
             name: String,
             document: String,
-            completion: (result: DocumentSnapshot?, error: Exception?) -> Unit
+            completion: (snapshots: List<DocumentSnapshot>?, error: Exception?) -> Unit
         ) {
             firestore
-                .collection(name)
+                .collection("users")
                 .document(document)
+                .collection(name)
                 .get()
                 .addOnSuccessListener {
-                    completion(it, null)
+                    completion(it.documents, null)
                 }
                 .addOnFailureListener {
                     completion(null, it)
+                }
+        }
+
+        override fun <T> save(
+            name: String,
+            document: String,
+            value: T,
+            completion: (success: Boolean, error: Exception?) -> Unit
+        ) {
+            firestore
+                .collection("users")
+                .document(document)
+                .collection(name)
+                .add(value as Any)
+                .addOnSuccessListener {
+                    completion(true, null)
+                }
+                .addOnFailureListener {
+                    completion(false, it)
                 }
         }
     }

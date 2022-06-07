@@ -15,6 +15,12 @@ class MusicSpaceInteractor(
                     .startWith(Observable.just(MusicSpaceEffect.Loading))
 
             is MusicSpaceCommand.RemoveSong -> TODO()
+
+            MusicSpaceCommand.AddNewSong ->
+                Observable.just(MusicSpaceEffect.AddNewSong)
+
+            MusicSpaceCommand.ResetNavigation ->
+                Observable.just(MusicSpaceEffect.Nothing)
         }
     }
 }

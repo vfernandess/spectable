@@ -63,6 +63,7 @@ dependencies {
     implementation viewDependencies.constraintLayout
     implementation viewDependencies.coordinatorLayout
     implementation viewDependencies.fragment
+    implementation viewDependencies.picasso
     implementation viewDependencies.recycler
     implementation viewDependencies.lifecycleViewModel
     implementation viewDependencies.lifecycleLiveData

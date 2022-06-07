@@ -19,14 +19,14 @@ interface GetMySongsUseCase {
         override fun invoke(): Observable<MusicSpaceEffect> {
             return Observable.create { emitter ->
                 val userID = userID ?: ""
-                proxy.retrieve("music", userID) { snapshot, error ->
+                proxy.retrieve("music", userID) { snapshots, error ->
                     if (error != null) {
                         emitter.onNext(MusicSpaceEffect.Error(error))
                         return@retrieve
                     }
 
-                    snapshot?.data
-                        .takeIf { it == null }
+                    snapshots
+                        ?.takeIf { it.isEmpty() }
                         .run {
                             emitter.onNext(MusicSpaceEffect.UserEmptySongList)
                         }
