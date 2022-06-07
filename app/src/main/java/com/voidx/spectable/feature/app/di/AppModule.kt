@@ -16,5 +16,5 @@ val appModule = module {
 
     factory { SpotifyExpirationTokenDateProperty() }
 
-    factory<FirebaseFirestoreProxy> { FirebaseFirestoreProxy.Impl(Firebase.firestore) }
+    single<FirebaseFirestoreProxy> { FirebaseFirestoreProxy.Impl(Firebase.firestore) }
 }

@@ -1,5 +1,7 @@
 package com.voidx.spectable.feature.music.space.presentation
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +15,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MusicSpaceViewModel(
     private val interactor: MusicSpaceInteractor,
-    private val effect: MutableLiveData<MusicSpaceEffect> = MutableLiveData<MusicSpaceEffect>(),
+    private val effect: MutableLiveData<MusicSpaceEffect> = MutableLiveData(),
     private val disposables: CompositeDisposable = CompositeDisposable()
 ) : ViewModel() {
 
@@ -25,7 +27,10 @@ class MusicSpaceViewModel(
             .subscribeOn(AndroidSchedulers.mainThread())
             .observeOn(Schedulers.io())
             .subscribe {
-                this.effect.postValue(it)
+                val handler = Handler(Looper.getMainLooper())
+                handler.post {
+                    this.effect.value = it
+                }
             }
     }
 

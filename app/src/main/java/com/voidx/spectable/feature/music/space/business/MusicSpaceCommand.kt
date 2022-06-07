@@ -12,5 +12,5 @@ sealed class MusicSpaceCommand {
 
     object AddNewSong: MusicSpaceCommand()
 
-    object ResetNavigation: MusicSpaceCommand()
+    object Reset: MusicSpaceCommand()
 }

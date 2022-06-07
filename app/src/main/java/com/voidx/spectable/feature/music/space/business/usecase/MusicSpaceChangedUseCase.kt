@@ -7,40 +7,38 @@ import com.voidx.spectable.firebase.FirebaseFirestoreProxy
 import com.voidx.spectable.property.UserIdProperty
 import io.reactivex.rxjava3.core.Observable
 
-interface GetMySongsUseCase {
+interface MusicSpaceChangedUseCase {
 
     operator fun invoke(): Observable<MusicSpaceEffect>
 
     class Impl(
         private val proxy: FirebaseFirestoreProxy,
         userIdProperty: UserIdProperty
-    ) : GetMySongsUseCase {
+    ) : MusicSpaceChangedUseCase {
 
         private val userID: String? by userIdProperty
 
         override fun invoke(): Observable<MusicSpaceEffect> {
             return Observable.create { emitter ->
-                val userID = userID ?: ""
-                proxy.retrieve("music", userID) { snapshots, error ->
-                    if (error != null) {
-                        emitter.onNext(MusicSpaceEffect.Error(error))
-                        return@retrieve
-                    }
 
-                    snapshots
-                        ?.takeIf { it.isEmpty() }
-                        ?.run {
+                proxy
+                    .listenForInsertion(
+                        name = "music",
+                        document = userID.orEmpty(),
+                        onEmpty = {
                             emitter.onNext(MusicSpaceEffect.UserEmptySongList)
-                        }
+                        },
+                        onInserted = { snapshot, error ->
+                            if (error != null) {
+                                emitter.onNext(MusicSpaceEffect.Error(error))
+                                return@listenForInsertion
+                            }
 
-                    snapshots
-                        ?.takeIf { it.isNotEmpty() }
-                        ?.run {
-                            val songs = this.mapNotNull { it.toObject<Song>() }
-
-                            emitter.onNext(MusicSpaceEffect.UserSongListRetrieved(songs))
+                            snapshot?.toObject<Song>()?.let {
+                                emitter.onNext(MusicSpaceEffect.UserSongListAdded(it))
+                            }
                         }
-                }
+                    )
             }
         }
     }

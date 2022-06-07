@@ -2,6 +2,7 @@ package com.voidx.spectable.feature.music.space.di
 
 import com.voidx.spectable.feature.music.space.business.MusicSpaceInteractor
 import com.voidx.spectable.feature.music.space.business.usecase.GetMySongsUseCase
+import com.voidx.spectable.feature.music.space.business.usecase.MusicSpaceChangedUseCase
 import com.voidx.spectable.feature.music.space.presentation.MusicSpaceViewModel
 import com.voidx.spectable.feature.music.space.view.MusicSpaceFragment
 import com.voidx.spectable.feature.music.space.view.MusicSpaceRouter
@@ -14,7 +15,9 @@ val musicSpaceModule = module {
 
         factory<GetMySongsUseCase> { GetMySongsUseCase.Impl(get(), get()) }
 
-        factory { MusicSpaceInteractor(get()) }
+        scoped<MusicSpaceChangedUseCase> { MusicSpaceChangedUseCase.Impl(get(), get()) }
+
+        factory { MusicSpaceInteractor(get(), get()) }
 
         scoped<MusicSpaceRouter> { navigation ->
             MusicSpaceRouter.Impl(navigation.get())

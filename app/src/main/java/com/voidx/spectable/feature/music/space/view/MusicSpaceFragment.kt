@@ -1,6 +1,7 @@
 package com.voidx.spectable.feature.music.space.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -9,9 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.voidx.spectable.databinding.FragmentMusicSpaceBinding
+import com.voidx.spectable.feature.music.space.Song
 import com.voidx.spectable.feature.music.space.business.MusicSpaceCommand
 import com.voidx.spectable.feature.music.space.business.MusicSpaceCommand.AddNewSong
-import com.voidx.spectable.feature.music.space.business.MusicSpaceCommand.ResetNavigation
+import com.voidx.spectable.feature.music.space.business.MusicSpaceCommand.Reset
 import com.voidx.spectable.feature.music.space.business.MusicSpaceEffect
 import com.voidx.spectable.feature.music.space.business.MusicSpaceEffect.Error
 import com.voidx.spectable.feature.music.space.business.MusicSpaceEffect.Loading
@@ -20,6 +22,7 @@ import com.voidx.spectable.feature.music.space.business.MusicSpaceEffect.UserSon
 import com.voidx.spectable.feature.music.space.business.MusicSpaceEffect.UserSongListRemoved
 import com.voidx.spectable.feature.music.space.business.MusicSpaceEffect.UserSongListRetrieved
 import com.voidx.spectable.feature.music.space.presentation.MusicSpaceViewModel
+import com.voidx.spectable.feature.music.space.view.item.MusicSpaceAdapter
 import org.koin.android.ext.android.inject
 import org.koin.android.scope.AndroidScopeComponent
 import org.koin.androidx.scope.fragmentScope
@@ -32,6 +35,10 @@ class MusicSpaceFragment : Fragment(), AndroidScopeComponent {
     override val scope: Scope by fragmentScope()
 
     private lateinit var binding: FragmentMusicSpaceBinding
+    private val adapter by lazy {
+        MusicSpaceAdapter(::onSongSelected)
+    }
+
     private val musicSpaceViewModel: MusicSpaceViewModel by viewModel()
     private val router: MusicSpaceRouter by inject { parametersOf(view?.findNavController()) }
 
@@ -46,6 +53,9 @@ class MusicSpaceFragment : Fragment(), AndroidScopeComponent {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.mySongs.isNestedScrollingEnabled = false
+        binding.mySongs.adapter = adapter
 
         binding.emptyState.setOnClickListener {
             musicSpaceViewModel.invoke(AddNewSong)
@@ -75,7 +85,12 @@ class MusicSpaceFragment : Fragment(), AndroidScopeComponent {
                     binding.emptyState.visibility = VISIBLE
                 }
 
-                is UserSongListAdded -> TODO()
+                is UserSongListAdded -> {
+                    binding.loading.visibility = GONE
+                    binding.groupUserWithSongs.visibility = VISIBLE
+
+                    adapter.notifySongAdded(effect.song)
+                }
                 is UserSongListRemoved -> TODO()
 
                 is UserSongListRetrieved -> {
@@ -85,12 +100,16 @@ class MusicSpaceFragment : Fragment(), AndroidScopeComponent {
                 }
 
                 MusicSpaceEffect.AddNewSong -> {
-                    musicSpaceViewModel.invoke(ResetNavigation)
+                    musicSpaceViewModel.invoke(Reset)
                     router.showSearch()
                 }
             }
         }
 
         musicSpaceViewModel.invoke(MusicSpaceCommand.Load)
+    }
+
+    private fun onSongSelected(song: Song) {
+
     }
 }

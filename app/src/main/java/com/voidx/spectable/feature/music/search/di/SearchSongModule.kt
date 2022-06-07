@@ -5,6 +5,7 @@ import com.voidx.spectable.feature.music.search.business.SearchSongInteractor
 import com.voidx.spectable.feature.music.search.business.mapper.SongMapper
 import com.voidx.spectable.feature.music.search.business.usecase.AddSongUseCase
 import com.voidx.spectable.feature.music.search.business.usecase.RefreshTokenUseCase
+import com.voidx.spectable.feature.music.search.business.usecase.ResetExpirationDateUseCase
 import com.voidx.spectable.feature.music.search.business.usecase.SearchSongUseCase
 import com.voidx.spectable.feature.music.search.infra.networking.SpotifyAPI
 import com.voidx.spectable.feature.music.search.infra.repository.AccessTokenRepository
@@ -55,6 +56,8 @@ val searchSongModule = module {
 
         scoped<AddSongUseCase> { AddSongUseCase.Impl(get(), get()) }
 
+        scoped<ResetExpirationDateUseCase> { ResetExpirationDateUseCase.Impl(get()) }
+
         factory<SearchSongRepository> { SearchSongRepository.Impl(get(), get()) }
 
         scoped<SearchSongRouter> { navigation ->
@@ -67,7 +70,7 @@ val searchSongModule = module {
             return@scoped AccessTokenRepository.Impl(remote, local)
         }
 
-        scoped { SearchSongInteractor(get(), get(), get()) }
+        scoped { SearchSongInteractor(get(), get(), get(), get()) }
 
         viewModel { SearchSongViewModel(get()) }
     }
