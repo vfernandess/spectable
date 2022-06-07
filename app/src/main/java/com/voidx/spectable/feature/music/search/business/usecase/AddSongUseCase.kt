@@ -21,7 +21,8 @@ interface AddSongUseCase {
             return Observable.create { emitter ->
                 proxy.save(
                     name = "music",
-                    document = userID ?: "",
+                    document = userID.orEmpty(),
+                    valueID = song.id,
                     value = song
                 ) { success, error ->
                     if (success) {

@@ -11,6 +11,7 @@ interface SongMapper {
 
         override fun map(track: Track): Song {
             return Song(
+                id = track.id,
                 name = track.name,
                 artist = track.artists?.firstOrNull()?.name,
                 thumbnail = track.album?.images?.firstOrNull { it.height == 300 }?.url,

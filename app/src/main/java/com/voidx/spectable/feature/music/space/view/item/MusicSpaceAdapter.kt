@@ -8,7 +8,8 @@ import com.voidx.spectable.databinding.MusicSpaceItemBinding
 import com.voidx.spectable.feature.music.space.Song
 
 class MusicSpaceAdapter(
-    private val onItemSelected: (song: Song) -> Unit
+    private val onItemSelected: (song: Song) -> Unit,
+    private val onItemRemoved: (song: Song) -> Unit
 ) : RecyclerView.Adapter<MusicSpaceItem>() {
 
     private var songs: MutableSet<Song> = mutableSetOf()
@@ -26,11 +27,14 @@ class MusicSpaceAdapter(
         }
     }
 
-    fun notifySongRemoved(song: Song) {
-        val position = songs.indexOf(song)
-        if (songs.remove(song)) {
-            notifyItemRemoved(position)
-        }
+    fun notifySongRemoved(position: Int) {
+        songs
+            .elementAtOrNull(position)
+            ?.takeIf { songs.remove(it) }
+            ?.run {
+                notifyItemRemoved(position)
+                onItemRemoved.invoke(this)
+            }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicSpaceItem {
