@@ -14,7 +14,7 @@ interface SearchSongRepository {
         accessTokenProperty: SpotifyAccessTokenProperty
     ) : SearchSongRepository {
 
-        private val accessToken: String? by accessTokenProperty
+        private var accessToken: String? by accessTokenProperty
 
         override fun search(term: String): Observable<SearchInfo> {
             val auth = "Bearer ${accessToken ?: ""}"

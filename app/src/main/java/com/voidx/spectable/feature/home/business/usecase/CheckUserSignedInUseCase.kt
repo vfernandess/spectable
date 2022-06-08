@@ -12,7 +12,7 @@ interface CheckUserSignedInUseCase {
             userIdProperty: UserIdProperty
     ) : CheckUserSignedInUseCase {
 
-        private val userID: String? by userIdProperty
+        private var userID: String? by userIdProperty
 
         override fun invoke(): Observable<HomeEffect> {
             val state = if (userID == null)

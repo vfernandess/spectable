@@ -16,10 +16,8 @@ interface ResetExpirationDateUseCase {
 
         override fun invoke(throwable: Throwable): Boolean {
             if (throwable is HttpException) {
-                if (throwable.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                    expirationDate = 0L
-                    return true
-                }
+                expirationDate = 0L
+                return true
             }
 
             return false

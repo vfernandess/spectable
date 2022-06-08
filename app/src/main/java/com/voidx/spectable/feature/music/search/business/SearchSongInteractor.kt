@@ -28,7 +28,10 @@ class SearchSongInteractor(
                     .refreshToken()
                     .andThen(searchSongUseCase(command.term))
                     .debounce(1, TimeUnit.SECONDS)
-                    .retry(1) {
+                    .onErrorReturn {
+                        SearchSongEffect.Error(it)
+                    }
+                    .retry(Long.MAX_VALUE) {
                         resetExpirationDateUseCase(it)
                     }
         }

@@ -11,7 +11,7 @@ enum class Ephemerality {
 
 abstract class SharedPrefsProperty<T>(
         private val namespace: String,
-        default: T,
+        private val default: T,
         private val ephemerality: Ephemerality = Ephemerality.RENEWABLE_IN_SESSION,
 ) : ReadWriteProperty<Any?, T> {
 
@@ -20,7 +20,14 @@ abstract class SharedPrefsProperty<T>(
     override fun getValue(
             thisRef: Any?,
             property: KProperty<*>
-    ): T = currentValue
+    ): T {
+        return if (currentValue == null) {
+            val value = Hawk.get(namespace, default)
+            return value ?: default
+        } else {
+            currentValue
+        }
+    }
 
     override fun setValue(
             thisRef: Any?,
